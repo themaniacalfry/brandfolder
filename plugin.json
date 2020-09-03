@@ -1,0 +1,57 @@
+{
+  "name": "brandfolder",
+  "displayName": "Brandfolder",
+  "description": "Integration with Brandfolder API",
+  "category": "",
+  "documentLink": "",
+  "needsOAuth": false,
+  "providerData": [
+    {
+      "param": "token",
+      "displayName": "Token",
+      "description": "Brandfolder API Token",
+      "type": "STRING",
+      "optional": false
+    },
+    {
+      "param": "org_id",
+      "displayName": "Organization ID",
+      "description": "OrgID",
+      "type": "STRING",
+      "optional": false
+    }
+  ],
+  "module": [
+    {
+      "id": "list_users",
+      "name": "List Users",
+      "description": "List Users ",
+      "hasReturn": true,
+      "param": []
+    },
+    {
+      "id": "search_assets",
+      "name": "Search Assets",
+      "description": "Searches Brandfolder Assets by tags",
+      "hasReturn": true,
+      "param": [
+        {
+          "param": "tags",
+          "displayName": "Tags",
+          "description": "Tags to search for (can accept array, csv or string) ",
+          "type": "STRING",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "list_tags",
+      "name": "List Tags",
+      "description": "Lists all tags in Brandfolder",
+      "hasReturn": true,
+      "param": []
+    }
+  ],
+  "webhooks": [],
+  "hasOAuth": false
+}

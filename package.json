@@ -1,0 +1,20 @@
+{
+  "name": "brandfolder",
+  "description": "Integration with Brandfolder API",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "mocha test/plugin-test.js 'test/**/*-test.js'"
+  },
+  "dependencies": {
+    "@converseai/plugins-sdk": "latest",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "body-parser": "1.18.2",
+    "chai": "4.1.2",
+    "express": "4.16.1",
+    "mocha": "4.0.0",
+    "supertest": "3.0.0"
+  }
+}
