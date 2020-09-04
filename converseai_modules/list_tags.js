@@ -11,19 +11,18 @@
 const Status          = require('@converseai/plugins-sdk').Status;
 const ModuleResponse  = require('@converseai/plugins-sdk').Payloads.Module.ModuleResponse;
 const request         = require('request-promise');
-const search_assets = require('./search_assets');
 
 module.exports = function list_users (app, body) {
 
   /** @type {String} token Brandfolder API Token  */
-  const {token, org_id} = body.payload.registrationData;
+  const {token, org_id, brandfolder_id} = body.payload.registrationData;
 
   
-  if (token != undefined && org_id != undefined) { 
+  if (token != undefined && org_id != undefined && brandfolder_id != undefined) { 
     /** @type {ModuleResponse} response The Converse AI response to respond with. */
     const response = new ModuleResponse();
     const options = {
-      url:`https://brandfolder.com/api/v4/organizations/${org_id}/assets`,
+      url:`https://brandfolder.com/api/v4/brandfolders/${brandfolder_id}/searchable_things?clear_cache=false&queue_priority=high`,
       headers:{
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -32,13 +31,8 @@ module.exports = function list_users (app, body) {
     }
     
     request.get(options).then(result=> { 
-      
-      ///Take asset ids returned to us and loop through them listing out all the tags (will have duplicates so need to filter out duplicates.)
-      /// https://brandfolder.com/api/v4/assets/{asset_id}/tags
-      /// Enrich tag ids
-      /// Check duplicates  
-      ///Send back to Bridge
-      response.setValue(result);
+      const tags= result.tags.map(element => element.name);
+      response.setValue({tags});
       app.send(Status.SUCCESS, response);
         }).catch(err=>{
           console.error(err)

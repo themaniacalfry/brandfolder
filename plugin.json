@@ -14,6 +14,13 @@
       "optional": false
     },
     {
+      "param": "brandfolder_id",
+      "displayName": "Brandfolder ID",
+      "description": "ID for a brandfolder",
+      "type": "STRING",
+      "optional": false
+    },
+    {
       "param": "org_id",
       "displayName": "Organization ID",
       "description": "OrgID",

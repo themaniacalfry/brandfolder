@@ -9,12 +9,12 @@
 const request     = require('supertest');
 const expect      = require('chai').expect;
 const server      = require('./lib/express');
-const {token, org_id} = require('../lib/env');
+const {token, org_id,brandfolder_id} = require('../lib/env');
 
 
 describe('List Tags', function () {
 
-  it('base', function(done) {
+  it('Lists all tags', function(done) {
     request(server)
       .post('/')
       .send({
@@ -26,6 +26,7 @@ describe('List Tags', function () {
           registrationData: {
             token: token,
             org_id: org_id,
+            brandfolder_id:brandfolder_id,
           }        }
       })
       .set('X_CONVERSE_APP_TOKEN', require('../app-token'))
