@@ -14,17 +14,12 @@ const request         = require('request-promise');
 
 module.exports = function search_assets (app, body) {
 
-  /** @type {String} token Brandfolder API Token  */
-  const token = body.payload.registrationData.token;
-
-  /** @type {String} orgId OrgID  */
-  const org_id = body.payload.registrationData.org_id;
-
+  /** @type {String} token Brandfolder API Token  and org_id */
+  const {token,org_id} = body.payload.registrationData;
 
   /** @type {String} tags Tags to search for (can accept array, csv 
   * or string)   */
   var tags = body.payload.moduleParam.tags;
-  console.log(typeof tags)
   if(tags.includes('[')){
     tags = tags.replace(/\[/g,'').replace(/\]/g,'');
   }

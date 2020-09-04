@@ -12,13 +12,13 @@ const Status          = require('@converseai/plugins-sdk').Status;
 const ModuleResponse  = require('@converseai/plugins-sdk').Payloads.Module.ModuleResponse;
 const request         = require('request-promise');
 
-module.exports = function list_users (app, body) {
+module.exports = function list_tags(app, body) {
 
   /** @type {String} token Brandfolder API Token  */
-  const {token, org_id, brandfolder_id} = body.payload.registrationData;
+  const {token, brandfolder_id} = body.payload.registrationData;
 
   
-  if (token != undefined && org_id != undefined && brandfolder_id != undefined) { 
+  if (token != undefined && brandfolder_id != undefined) { 
     /** @type {ModuleResponse} response The Converse AI response to respond with. */
     const response = new ModuleResponse();
     const options = {
