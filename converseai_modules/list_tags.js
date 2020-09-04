@@ -13,32 +13,32 @@ const ModuleResponse  = require('@converseai/plugins-sdk').Payloads.Module.Modul
 const request         = require('request-promise');
 
 module.exports = function list_tags(app, body) {
+  const { token } = body.payload.registrationData;
 
-  /** @type {String} token Brandfolder API Token  */
-  const {token, brandfolder_id} = body.payload.registrationData;
+  const { brandfolderId } = body.payload.moduleParam
 
   
-  if (token != undefined && brandfolder_id != undefined) { 
+  if (token != undefined && brandfolderId != undefined) { 
     /** @type {ModuleResponse} response The Converse AI response to respond with. */
     const response = new ModuleResponse();
+
     const options = {
-      url:`https://brandfolder.com/api/v4/brandfolders/${brandfolder_id}/searchable_things?clear_cache=false&queue_priority=high`,
+      url:`https://brandfolder.com/api/v4/brandfolders/${brandfolderId}/searchable_things`,
       headers:{
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },      
       json: true
-    }
+    };
     
-    request.get(options).then(result=> { 
-      const tags= result.tags.map(element => element.name);
-      response.setValue({tags});
+    request.get(options).then(result => { 
+      const tags = result.tags.map(element => element.name);
+      response.setValue({ tags });
       app.send(Status.SUCCESS, response);
-        }).catch(err=>{
+        }).catch(err => {
           console.error(err)
-          app.fail({ httpStatus: err.statusCode, message: err.error.errors}); 
-        })
-    
+          app.fail({ httpStatus: err.statusCode, message: err.error.errors }); 
+        });
   } else { 
     app.fail({ httpStatus: 400, code: 'REQUIRED_PARAMS_UNDEFINED', description: 'Required parameters are undefined.' }); 
   }

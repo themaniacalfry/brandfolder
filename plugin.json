@@ -14,14 +14,7 @@
       "optional": false
     },
     {
-      "param": "brandfolder_id",
-      "displayName": "Brandfolder ID",
-      "description": "ID for a brandfolder",
-      "type": "STRING",
-      "optional": false
-    },
-    {
-      "param": "org_id",
+      "param": "orgId",
       "displayName": "Organization ID",
       "description": "OrgID",
       "type": "STRING",
@@ -56,7 +49,15 @@
       "name": "List Tags",
       "description": "Lists all tags in Brandfolder",
       "hasReturn": true,
-      "param": []
+      "param": [
+        {
+          "param": "brandfolderId",
+          "displayName": "Brandfolder ID",
+          "description": "ID for a brandfolder",
+          "type": "STRING",
+          "optional": false
+        }
+      ]
     }
   ],
   "webhooks": [],

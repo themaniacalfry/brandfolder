@@ -9,7 +9,7 @@
 const request     = require('supertest');
 const expect      = require('chai').expect;
 const server      = require('./lib/express');
-const {token, org_id} = require('../lib/env');
+const {token, orgId} = require('../lib/env');
 
 describe('List Users', function () {
 
@@ -24,7 +24,7 @@ describe('List Users', function () {
           },
           registrationData: {
             token,
-            org_id
+            orgId
           }        }
       })
       .set('X_CONVERSE_APP_TOKEN', require('../app-token'))

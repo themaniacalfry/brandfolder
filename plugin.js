@@ -33,7 +33,7 @@ const RegProviders       = require('./converseai_providers');
  * @param {Object} response Express HTTP response object.
  */
 exports.marketsharedemo_brandfolder = function (request, response) {
-  var app = new ConversePluginsSDK.http({ request, response });
+  const app = new ConversePluginsSDK.http({ request, response });
 
   if (request && request.headers && request.headers['x_converse_app_token'] && request.headers['x_converse_app_token'] === require('./app-token')) {
 
@@ -45,8 +45,6 @@ exports.marketsharedemo_brandfolder = function (request, response) {
       search_assets: require('./converseai_modules/search_assets'),
       list_tags: require('./converseai_modules/list_tags')
     });
-
-
 
     app.handleRequest();
   } else {

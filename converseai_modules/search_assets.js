@@ -13,26 +13,24 @@ const ModuleResponse  = require('@converseai/plugins-sdk').Payloads.Module.Modul
 const request         = require('request-promise');
 
 module.exports = function search_assets (app, body) {
+  const { token, orgId } = body.payload.registrationData;
 
-  /** @type {String} token Brandfolder API Token  and org_id */
-  const {token,org_id} = body.payload.registrationData;
+  const { tags } = body.payload.moduleParam;
 
-  /** @type {String} tags Tags to search for (can accept array, csv 
-  * or string)   */
-  var tags = body.payload.moduleParam.tags;
   if(tags.includes('[')){
     tags = tags.replace(/\[/g,'').replace(/\]/g,'');
-  }
+  };
 
   if(typeof tags==='object'){
     tags=tags.join()
-  }
+  };
 
-  if (token != undefined && org_id != undefined) { 
+  if (token != undefined && orgId != undefined) { 
     /** @type {ModuleResponse} response The Converse AI response to respond with. */
-    var response = new ModuleResponse();
+    const response = new ModuleResponse();
+
     const options = {
-      url:`https://brandfolder.com/api/v4/organizations/${org_id}/assets`,
+      url:`https://brandfolder.com/api/v4/organizations/${orgId}/assets`,
       headers:{
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -43,15 +41,15 @@ module.exports = function search_assets (app, body) {
         include: 'brandfolder,section,collections,attachments,tags,custom_fields'
       },
       json: true
-    }
-    request.get(options).then(result=> {
+    };
 
+    request.get(options).then(result => {
         response.setValue(result);
         app.send(Status.SUCCESS, response);
-        }).catch(err=>{
+        }).catch(err => {
           console.error(err)
-          app.fail({ httpStatus: err.statusCode, message: err.error.errors}); 
-        })
+          app.fail({ httpStatus: err.statusCode, error: err.error.errors }); 
+        });
   } else { 
     app.fail({ httpStatus: 400, code: 'REQUIRED_PARAMS_UNDEFINED', description: 'Required parameters are undefined.' }); 
   }

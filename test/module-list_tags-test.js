@@ -9,7 +9,7 @@
 const request     = require('supertest');
 const expect      = require('chai').expect;
 const server      = require('./lib/express');
-const {token, org_id,brandfolder_id} = require('../lib/env');
+const {token, orgId,brandfolderId} = require('../lib/env');
 
 
 describe('List Tags', function () {
@@ -25,8 +25,8 @@ describe('List Tags', function () {
           },
           registrationData: {
             token: token,
-            org_id: org_id,
-            brandfolder_id:brandfolder_id,
+            orgId: orgId,
+            brandfolderId:brandfolderId,
           }        }
       })
       .set('X_CONVERSE_APP_TOKEN', require('../app-token'))
